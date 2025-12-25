@@ -1,0 +1,99 @@
+<!-- CAM 04 IS STILL ACTIVE -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Security Terminal</title>
+  <style>
+    body {
+      background: black;
+      color: #00ff66;
+      font-family: monospace;
+      padding: 20px;
+    }
+
+    #terminal {
+      padding: 20px;
+    }
+
+    input {
+      background: black;
+      color: #00ff66;
+      border: none;
+      outline: none;
+      font-family: monospace;
+    }
+
+    #output {
+      white-space: pre-wrap;
+    }
+
+    a {
+      color: #00ff66;
+      display: block;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="terminal">
+  <p>MIRAGETECH INDUSTRIES INTERNAL ACCESS</p>
+  <p>ENTER COMMAND:</p>
+  <input id="command" autocomplete="off" />
+  <pre id="output"></pre>
+</div>
+
+<script>
+const input = document.getElementById("command");
+const output = document.getElementById("output");
+
+// Focus input initially
+input.focus();
+
+input.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    const cmd = input.value.toLowerCase();
+    input.value = "";
+
+    if (cmd === "help") {
+      output.textContent += "\nAVAILABLE COMMANDS: STATUS, CAMERAS";
+    } else if (cmd === "status") {
+      output.textContent += "\nSYSTEM STATUS: PARTIALLY ONLINE";
+    } else if (cmd === "cameras") {
+      output.textContent += "\nACCESS GRANTED";
+      localStorage.setItem("camsUnlocked", "true");
+
+      // Add workstation link
+      if (!document.getElementById("workstation-link")) {
+        const link = document.createElement("a");
+        link.href = "computer.html";
+        link.textContent = "Open Workstation 07";
+        link.id = "workstation-link";
+        document.body.appendChild(link);
+      }
+    } else {
+      output.textContent += "\nUNKNOWN COMMAND";
+    }
+
+    // Scroll output down
+    output.scrollTop = output.scrollHeight;
+
+    // Keep input focused
+    input.focus();
+  }
+});
+
+// Show link if already unlocked
+if (localStorage.getItem("camsUnlocked") === "true") {
+  if (!document.getElementById("workstation-link")) {
+    const link = document.createElement("a");
+    link.href = "computer.html";
+    link.textContent = "Open Workstation 07";
+    link.id = "workstation-link";
+    document.body.appendChild(link);
+  }
+}
+</script>
+
+</body>
+</html>

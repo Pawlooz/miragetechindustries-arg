@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Logs</title>
+  <style>
+    body {
+      background: black;
+      color: #00ff66;
+      font-family: monospace;
+      padding: 20px;
+    }
+
+    a.button {
+      display: inline-block;
+      padding: 5px 10px;
+      margin-bottom: 20px;
+      color: #00ff66;
+      text-decoration: none;
+      border: 1px solid #00ff66;
+    }
+
+    a.button:hover {
+      background: rgba(0,255,100,0.1);
+    }
+
+    .folder {
+      cursor: pointer;
+      color: #00ff66;
+      margin-top: 10px;
+      padding: 5px;
+      display: inline-block;
+      border: 1px solid #00ff66;
+    }
+
+    .folder:hover {
+      background: rgba(0,255,100,0.1);
+    }
+
+    pre {
+      white-space: pre-wrap;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<a class="button" href="computer.html">⮐ Return to Workstation</a>
+
+<!-- “Folder” inside logs -->
+<div class="folder" onclick="openSecret()">📁 secret_logs.txt</div>
+
+<pre id="logContent">
+LOG 03:
+He changed the lock after April.
+Four digits.
+</pre>
+
+<script>
+function openSecret() {
+  const logContent = document.getElementById("logContent");
+  logContent.textContent += "\n\nSECRET LOG FOUND: Remember CAM04 and check the admin folder for clues.";
+}
+</script>
+
+</body>
+</html>

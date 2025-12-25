@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Security Cameras</title>
+</head>
+<body>
+  <h1>SECURITY FEED</h1>
+
+  <script>
+    if (localStorage.getItem("camsUnlocked") !== "true") {
+      document.body.innerHTML = "ACCESS DENIED";
+    }
+  </script>
+</body>
+</html>

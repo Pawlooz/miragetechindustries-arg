@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Files</title>
+  <style>
+    body {
+      background: black;
+      color: #00ff66;
+      font-family: monospace;
+      padding: 20px;
+    }
+
+    a.button {
+      display: inline-block;
+      padding: 5px 10px;
+      margin-bottom: 20px;
+      color: #00ff66;
+      text-decoration: none;
+      border: 1px solid #00ff66;
+    }
+
+    a.button:hover {
+      background: rgba(0,255,100,0.1);
+    }
+
+    .file {
+      cursor: pointer;
+      margin-top: 10px;
+      padding: 5px;
+      display: inline-block;
+      border: 1px solid #00ff66;
+    }
+
+    .file.locked {
+      color: #ff4444;
+    }
+
+    .file:hover {
+      background: rgba(0,255,100,0.1);
+    }
+
+    #fileContent {
+      margin-top: 20px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+<a class="button" href="computer.html">⮐ Return to Workstation</a>
+
+<div class="file locked" onclick="openFile('camera_override')">📄 camera_override.txt (locked)</div>
+<div class="file" onclick="openFile('terminated_employees')">📄 terminated_employees.txt</div>
+
+<pre id="fileContent"></pre>
+
+<script>
+function openFile(name) {
+  const content = document.getElementById("fileContent");
+
+  if (name === "camera_override") {
+    let unlocked = localStorage.getItem("cameraUnlocked");
+    if (!unlocked) {
+      const pass = prompt("PASSWORD REQUIRED for camera_override.txt");
+      if (pass === "0417") {
+        localStorage.setItem("cameraUnlocked", "true");
+        unlocked = true;
+        alert("ACCESS GRANTED");
+      } else {
+        alert("ACCESS DENIED");
+        return;
+      }
+    }
+
+    content.textContent = "CAMERA OVERRIDE LOG:\nAll feeds from CAM04 have been disabled temporarily.";
+  }
+
+  else if (name === "terminated_employees") {
+  content.textContent =
+`TERMINATED EMPLOYEES:
+- Michael Wilkins  (Reason for terminal: Disguised as a MIRAGETECH employee, turned out to be a Jack's Circus one)
+- Amy Hawkins  (Reason for terminal: Not cooperating with others and lying about everything. Almost freed one of the experiments from the operating rooms)
+- Emery West  (Reason for terminal: REDACTED)
+- Bob Martinez  (Reason for terminal: Didn't pay attention to Ziggy in the Testing Facility, which led to him escaping)`;
+}
+}
+</script>
+
+</body>
+</html>
