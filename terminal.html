@@ -1,0 +1,165 @@
+<!-- CAM 04 IS STILL ACTIVE --> 
+ <!DOCTYPE html> 
+ <html> 
+  <head> 
+    <title>Security Terminal</title> 
+    <style> 
+    body { 
+      background: black; 
+      color: #00ff66; 
+      font-family: monospace; 
+      padding: 20px; 
+      } 
+
+      #terminal { 
+        padding: 20px; 
+      } 
+
+      input { 
+        background: black; 
+        color: #00ff66; 
+        border: none; 
+        outline: none; 
+        font-family: monospace; 
+      } #output { 
+        white-space: pre-wrap; 
+      } 
+
+      #header {
+  font-size: 26px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  text-shadow: 0 0 8px rgba(0, 255, 100, 0.6);
+}
+
+      a { 
+        color: #00ff66; 
+        display: block; 
+        margin-top: 10px; 
+      } 
+      
+      </style> 
+      </head> 
+      <body> 
+        <div id="terminal"> 
+          <p id="header">MIRAGETECH INDUSTRIES INTERNAL ACCESS</p>
+          <p><em>type <strong>help</strong> to see the list of commands</em></p> 
+          <p>ENTER COMMAND:</p> <input id="command" autocomplete="off" /> 
+          <pre id="output"></pre> 
+        </div>
+<script>
+const input = document.getElementById("command");
+const output = document.getElementById("output");
+
+let ziggyControl = false;
+
+// Safety check
+if (!input || !output) {
+    console.error("Terminal elements not found! Make sure #command and #output exist.");
+} else {
+    // Focus input on load
+    input.focus();
+
+    function print(text) {
+        output.textContent += text;
+        output.scrollTop = output.scrollHeight;
+    }
+
+    input.addEventListener("keydown", (e) => {
+        if (e.key !== "Enter") return;
+
+        const cmd = input.value.toLowerCase().trim();
+        input.value = "";
+
+        // HELP
+        if (cmd === "help") {
+            print("\nAVAILABLE COMMANDS: STATUS, WORKSTATION, CAMERAS");
+            if (ziggyControl) {
+        print("\nNOTE: ADDITIONAL COMMANDS AVAILABLE:");
+        print("\nWHOAMI - Shows current user and authority");
+        print("\nOVERRIDE - Attempt to override system");
+        print("\nLOGOUT - Attempt to logout users from the system");
+    }
+        }
+
+        // STATUS (Ziggy takeover)
+        else if (cmd === "status") {
+            print("\nSYSTEM STATUS: PARTIALLY ONLINE");
+
+            setTimeout(() => print("\n...\n⚠ SECURITY EXCEPTION DETECTED"), 800);
+            setTimeout(() => print("\nADMIN SESSION INTERRUPTED"), 1600);
+            setTimeout(() => {
+                print("\nACTIVE ADMIN SESSION\nOPERATOR: ZIGGY");
+                ziggyControl = true;
+            }, 2400);
+        }
+
+        // WORKSTATION
+        else if (cmd === "workstation") {
+            print("\nACCESS GRANTED");
+            localStorage.setItem("camsUnlocked", "true");
+
+            if (!document.getElementById("workstation-link")) {
+                const link = document.createElement("a");
+                link.href = "computer.html";
+                link.textContent = "Open Workstation 07";
+                link.id = "workstation-link";
+                document.body.appendChild(link);
+            }
+        }
+
+        // CAMERAS
+        else if (cmd === "cameras") {
+            print("\nCAMERA SYSTEM ONLINE");
+
+            if (!document.getElementById("camera-link")) {
+                const link = document.createElement("a");
+                link.href = "cameras.html";
+                link.textContent = "Open Security Cameras";
+                link.id = "camera-link";
+                document.body.appendChild(link);
+            }
+        }
+
+        // ---- ZIGGY-ONLY COMMANDS ----
+        else if (ziggyControl && cmd === "whoami") {
+            print("\nCURRENT USER: GUEST\nCURRENT AUTHORITY: ZIGGY");
+        }
+
+        else if (ziggyControl && cmd === "override") {
+            print("\nOVERRIDE DECLINED\nZIGGY: WHAT DO YOU THINK YOU ARE DOING?");
+        }
+
+        else if (ziggyControl && cmd === "logout") {
+            print("\nLOGOUT FAILED\nZIGGY: NICE TRY.");
+        }
+
+        // UNKNOWN COMMAND
+        else {
+            print("\nUNKNOWN COMMAND");
+        }
+
+        input.focus();
+    });
+
+    // Persist unlocked links on reload
+    if (localStorage.getItem("camsUnlocked") === "true") {
+        if (!document.getElementById("workstation-link")) {
+            const w = document.createElement("a");
+            w.href = "computer.html";
+            w.textContent = "Open Workstation 07";
+            w.id = "workstation-link";
+            document.body.appendChild(w);
+        }
+
+        if (!document.getElementById("camera-link")) {
+            const c = document.createElement("a");
+            c.href = "cameras.html";
+            c.textContent = "Open Security Cameras";
+            c.id = "camera-link";
+            document.body.appendChild(c);
+        }
+    }
+}
+</script>

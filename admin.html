@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,3 +89,181 @@ function openFile(name) {
 
 </body>
 </html>
+=======
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Admin Panel - Workstation 07</title>
+<link rel="stylesheet" href="style.css">
+<style>
+#returnBtn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  color: #00ff66;
+  text-decoration: none;
+  border: 1px solid #00ff66;
+  padding: 5px 10px;
+  z-index: 1000;
+}
+#returnBtn:hover { background: rgba(0,255,100,0.1); }
+
+#mainContent { margin-top: 40px; padding: 20px; }
+h1 { margin-bottom: 10px; }
+
+#tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+.tab { cursor: pointer; padding: 5px 10px; border: 1px solid #0f0; }
+.tab.active { background: #0f0; color: #000; }
+.tabContent { display: none; }
+.tabContent.active { display: block; }
+
+.section { margin-bottom: 20px; }
+.scrollable-table { max-height: 400px; overflow-y: auto; }
+.previous-usernames { font-size: 0.8em; color: #0a0; display: block; }
+</style>
+</head>
+<body>
+
+<a id="returnBtn" href="computer.html">⮐ RETURN TO WORKSTATION</a>
+
+<div id="mainContent">
+<h1>ADMIN PANEL</h1>
+
+<div id="tabs">
+  <div class="tab active" data-tab="system">SYSTEM LOGS & ALERTS</div>
+  <div class="tab" data-tab="control">CONTROL PANELS</div>
+  <div class="tab" data-tab="employees">EMPLOYEE INFO</div>
+</div>
+
+<div id="system" class="tabContent active">
+  <div class="section">
+    <h2>Camera Motion Activity</h2>
+    <pre>Action: Deactivated Motion Activity successfully. Operator: ZIGGY</pre>
+    <pre>2017-03-16 22:06 - Motion Detected at UNDERGROUND-ECamera_3</pre>
+    <pre>2017-03-16 22:04 - Motion Detected at UNDERGROUND-ECamera_1</pre>
+    <pre>2017-03-16 21:58 - Motion Detected at SURFACE-DCamera_5</pre>
+    <pre>2017-03-16 21:54 - Motion Detected at SURFACE-DCamera_6</pre>
+    <pre>2017-03-16 21:50 - Motion Detected at SURFACE-DCamera_7</pre>
+    <pre>2017-03-16 21:42 - Motion Detected at SURFACE-DCamera_3</pre>
+    <pre>Action: Archived the rest of the Motion Activity successfully. Operator: SYSTEM_AUTO</pre>
+  </div>
+
+  <div class="section">
+    <h2>Security Alerts</h2>
+    <ul>
+      <li>2017-03-16 21:33 - MULTIPLE USERS DETECTED USING THE CAMERAS</li>
+      <li>2015-12-06 00:02 - ALL ADMINISTRATIVE PRIVILEGES HAVE BEEN OVERWRITTEN</li>
+      <li>2015-12-05 16:06 - SECURITY EXCEPTION DETECTED</li>
+      <li>2015-12-06 13:47 - USER ACCOUNT UPDATED: Daniel Ross → Ziggy</li>
+      <li>2015-12-05 12:34 - SUSPICIOUS LOGIN ATTEMPT DETECTED</li>
+    </ul>
+  </div>
+</div>
+
+<div id="control" class="tabContent">
+  <div class="section">
+    <h2>SURFACE_GATES</h2>
+    <pre>
+GATE CONTROL STATUS: LOCKED
+AUTHORITY: ZIGGY
+MANUAL OVERRIDE: DISABLED
+    </pre>
+    <ul id="surfaceStatus">
+        
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>UNDERGROUND_GATES</h2>
+    <pre>
+GATE CONTROL STATUS: LOCKED
+AUTHORITY: ZIGGY
+MANUAL OVERRIDE: DISABLED
+    </pre>
+    <ul id="undergroundStatus">
+
+    </ul>
+  </div>
+</div>
+
+<div id="employees" class="tabContent">
+  <div class="section scrollable-table">
+    <h2>Personnel List</h2>
+    <table>
+      <tr><th>Name</th><th>Role</th><th>Clearance</th></tr>
+      <tr><td>ERROR</td><td>unknown</td><td>unknown</td></tr>
+      <tr><td>ERROR</td><td>unknown</td><td>unknown</td></tr>
+      <tr><td>ERROR</td><td>unknown</td><td>unknown</td></tr>
+      <tr><td>ERROR</td><td>unknown</td><td>unknown</td></tr>
+      <tr><td>ERROR</td><td>unknown</td><td>unknown</td></tr>
+      <tr><td>ERROR</td><td>unknown</td><td>unknown</td></tr>
+      <tr><td>ERROR</td><td>unknown</td><td>unknown</td></tr>
+      <tr><td>ERROR</td><td>unknown</td><td>unknown</td></tr>
+      <tr>
+        <td>
+          Ziggy
+          <span class="previous-usernames">Previous: Daniel Ross</span>
+        </td>
+        <td>System Operator</td>
+        <td>MAX</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>Suspicious Activity Notes</h2>
+    <ul>
+      <li>2015-08-15: New hire Mark Allen asked unusual questions about underground operations.</li>
+      <li>2015-07-17: Amy Hawkins was uncooperative and dishonest. Team work affected; keep monitoring.</li>
+      <li>2015-07-10: Jane Smith bypassed access console temporarily.</li>
+      <li>2015-06-14: Michael Wilkins was observed near restricted areas without authorization.</li>
+    </ul>
+  </div>
+
+  <div class="section scrollable-table">
+    <h2>Terminated Employees</h2>
+    <table>
+      <tr><th>Name</th><th>Reason for Termination</th></tr>
+      <tr><td>Michael Wilkins</td><td>Disguised as a MIRAGETECH employee, turned out to be a Jack's Circus one</td></tr>
+      <tr><td>Amy Hawkins</td><td>Not cooperating with others and lying about everything. Almost freed one of the experiments from the operating rooms</td></tr>
+      <tr><td>Emery West</td><td>REDACTED</td></tr>
+      <tr><td>Bob Martinez</td><td>Didn't pay attention to Ziggy in the Testing Facility, which led to him escaping</td></tr>
+    </table>
+  </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+  // Tab switching
+  const tabs = document.querySelectorAll('.tab');
+  const tabContents = document.querySelectorAll('.tabContent');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      tabContents.forEach(tc => tc.classList.remove('active'));
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+  });
+
+  // Initialize gate lists
+  const surfaceList = document.getElementById('surfaceStatus');
+  const undergroundList = document.getElementById('undergroundStatus');
+
+  for (let i = 1; i <= 21; i++) {
+    const li = document.createElement('li');
+    li.textContent = `Gate ${i}: CLOSED`;
+    surfaceList.appendChild(li);
+  }
+
+  for (let i = 1; i <= 32; i++) {
+    const li = document.createElement('li');
+    li.textContent = `Gate ${i}: CLOSED`;
+    undergroundList.appendChild(li);
+  }
+</script>
+
+</body>
+</html>
+>>>>>>> 40b9b6b (Update)

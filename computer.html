@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,3 +20,137 @@
 <script src="computer.js"></script>
 </body>
 </html>
+=======
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Workstation 07</title>
+  <style>
+    body {
+      background: black;
+      color: #00ff66;
+      font-family: monospace;
+      padding: 20px;
+    }
+
+    #returnBtn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      color: #00ff66;
+      text-decoration: none;
+      border: 1px solid #00ff66;
+      padding: 5px 10px;
+      font-family: monospace;
+    }
+
+    #returnBtn:hover {
+      background: rgba(0,255,100,0.1);
+    }
+
+    #mainContent {
+      margin-top: 40px;
+      padding: 20px;
+    }
+
+    h1 { margin-bottom: 10px; }
+
+    .folder {
+      cursor: pointer;
+      color: #00ff66;
+      margin-top: 10px;
+      padding: 5px;
+      display: inline-block;
+      border: 1px solid #00ff66;
+    }
+
+    .folder.locked {
+      opacity: 0.5;
+    }
+
+    .folder:hover {
+      background: rgba(0,255,100,0.1);
+    }
+  </style>
+</head>
+<body>
+
+<a id="returnBtn" href="terminal.html">⮐ RETURN TO TERMINAL</a>
+
+<div id="mainContent">
+  <h1>WORKSTATION 07</h1>
+  <p>USER: GUEST</p>
+
+  <div id="explorer">
+    <div class="folder" onclick="openFolder('logs')">📁 logs</div>
+    <div class="folder locked" id="adminFolder" onclick="openFolder('admin')">
+      📁 admin <span id="adminLabel">(locked)</span>
+    </div>
+    <div class="folder" onclick="openFolder('experiments')">📁 experiments</div>
+    <div class="folder" onclick="openFolder('maintenance')">📁 maintenance</div>
+    <div class="folder" onclick="openFolder('employee_handbook')">📁 employee_handbook</div>
+    <div class="folder" onclick="openFolder('personal_notes')">📁 personal_notes</div>
+  </div>
+</div>
+
+<script>
+const adminFolder = document.getElementById("adminFolder");
+const adminLabel = document.getElementById("adminLabel");
+
+function openFolder(name) {
+  switch(name) {
+    case 'admin':
+      let unlocked = localStorage.getItem("adminUnlocked");
+      if (!unlocked) {
+        const pass = prompt("Enter admin password:");
+        if (pass === "1007") {
+          localStorage.setItem("adminUnlocked", "true");
+          unlocked = true;
+          alert("ADMIN ACCESS GRANTED");
+          adminFolder.classList.remove("locked");
+          adminLabel.textContent = "";
+        } else {
+          alert("ACCESS DENIED");
+          return;
+        }
+      }
+      window.location.href = "admin.html";
+      break;
+
+    case 'logs':
+      window.location.href = "logs.html";
+      break;
+
+    case 'experiments':
+      window.location.href = "experiments.html";
+      break;
+
+    case 'maintenance':
+      window.location.href = "maintenance.html";
+      break;
+
+    case 'employee_handbook':
+      window.location.href = "employee_handbook.html";
+      break;
+
+    case 'personal_notes':
+      window.location.href = "personal_notes.html";
+      break;
+
+    default:
+      alert("Folder unavailable");
+  }
+}
+
+// On page load, check if admin already unlocked
+window.addEventListener("load", () => {
+  if (localStorage.getItem("adminUnlocked") === "true") {
+    adminFolder.classList.remove("locked");
+    adminLabel.textContent = "";
+  }
+});
+</script>
+
+</body>
+</html>
+>>>>>>> 40b9b6b (Update)
