@@ -1,34 +1,3 @@
-<<<<<<< HEAD
-body {
-  background: black;
-  color: #00ff66;
-  font-family: monospace;
-  padding: 20px;
-}
-
-#explorer {
-  border: 1px solid #00ff66;
-  padding: 10px;
-  width: 300px;
-  margin-top: 20px;
-}
-
-.folder {
-  cursor: pointer;
-  margin: 10px 0;
-  padding: 5px;
-}
-
-.folder:hover {
-  background: rgba(0,255,100,0.1);
-}
-
-.locked {
-  color: #ff4444;
-}
-
-/* admin password was his birthday */
-=======
 /* ===== BASE TERMINAL STYLES ===== */
 body {
   background: black;
