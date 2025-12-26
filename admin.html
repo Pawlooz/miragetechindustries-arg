@@ -15,23 +15,86 @@
   padding: 5px 10px;
   z-index: 1000;
 }
-#returnBtn:hover { background: rgba(0,255,100,0.1); }
+#returnBtn:hover { 
+  background: rgba(0,255,100,0.1); 
+}
+#adminConsole {
+  margin-top: 30px;
+}
 
-#mainContent { margin-top: 40px; padding: 20px; }
-h1 { margin-bottom: 10px; }
+#adminConsole input {
+  background: black;
+  color: #00ff66;
+  border: none;
+  outline: none;
+  font-family: monospace;
+  font-size: 14px;
+  width: 500px;
+}
 
-#tabs { display: flex; gap: 10px; margin-bottom: 20px; }
-.tab { cursor: pointer; padding: 5px 10px; border: 1px solid #0f0; }
-.tab.active { background: #0f0; color: #000; }
-.tabContent { display: none; }
-.tabContent.active { display: block; }
+#adminOutput {
+  margin-top: 10px;
+  font-size: 13px;
+  opacity: 0.8;
+  white-space: pre-wrap;
+}
 
-.section { margin-bottom: 20px; }
-.scrollable-table { max-height: 400px; overflow-y: auto; }
-.previous-usernames { font-size: 0.8em; color: #0a0; display: block; }
+#mainContent { 
+  margin-top: 40px; 
+  padding: 20px; 
+}
+h1 { 
+  margin-bottom: 10px; 
+}
+
+#tabs { 
+  display: flex; 
+  gap: 10px; 
+  margin-bottom: 20px; 
+}
+.tab { 
+  cursor: pointer; 
+  padding: 5px 10px; 
+  border: 1px solid #0f0; 
+  transition: background 0.3s ease, color 0.3s ease, transform 0.1s ease;
+}
+.tab:hover {
+  background: rgba(0, 255, 0, 0.1);
+  transform: translateY(-2px); /* subtle hover lift */
+}
+.tab.active { 
+  background: #0f0; 
+  color: #000; 
+}
+.tabContent { 
+  display: none; 
+}
+.tabContent.active { 
+  display: block; 
+}
+
+.section { 
+  margin-bottom: 20px; 
+}
+.scrollable-table { 
+  max-height: 400px; 
+  overflow-y: auto; 
+}
+.previous-usernames { 
+  font-size: 0.8em; 
+  color: #0a0; 
+  display: block; 
+  }
 </style>
 </head>
 <body>
+  <script>
+  // Check if admin access was unlocked
+  if (localStorage.getItem("adminUnlocked") !== "true") {
+    alert("ACCESS DENIED - Redirecting to workstation");
+    window.location.href = "computer.html";
+  }
+</script>
 
 <a id="returnBtn" href="computer.html">⮐ RETURN TO WORKSTATION</a>
 
@@ -42,6 +105,14 @@ h1 { margin-bottom: 10px; }
   <div class="tab active" data-tab="system">SYSTEM LOGS & ALERTS</div>
   <div class="tab" data-tab="control">CONTROL PANELS</div>
   <div class="tab" data-tab="employees">EMPLOYEE INFO</div>
+</div>
+
+<div id="adminConsole">
+  <div class="prompt">
+    <span>&gt;</span>
+    <input id="adminCommand" autocomplete="off" placeholder="enter admin command" />
+  </div>
+  <pre id="adminOutput"></pre>
 </div>
 
 <div id="system" class="tabContent active">
@@ -111,7 +182,7 @@ MANUAL OVERRIDE: DISABLED
       <tr>
         <td>
           Ziggy
-          <span class="previous-usernames">Previous: Daniel Ross</span>
+          <span class="previous-usernames">(Previous: Daniel Ross)</span>
         </td>
         <td>System Operator</td>
         <td>MAX</td>

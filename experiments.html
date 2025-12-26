@@ -15,6 +15,13 @@
   </style>
 </head>
 <body>
+  <script>
+  // Block access if experiments password was not unlocked
+  if (localStorage.getItem("experimentsUnlocked") !== "true") {
+    alert("ACCESS DENIED - Redirecting to workstation");
+    window.location.href = "computer.html";
+  }
+</script>
   <a id="returnBtn" href="computer.html">⮐ RETURN TO WORKSTATION</a>
 
   <div id="mainContent">
@@ -23,17 +30,18 @@
     <div class="section">
       <h2>Active Experiments</h2>
       <table id="experimentsTable">
-        <tr><th>Experiment</th><th>Animal</th><th>Status</th></tr>
-        <tr><td>JACK</td><td>Sloth</td><td>Stable</td></tr>
-        <tr><td>BINKY</td><td>Bunny</td><td>Stable</td></tr>
-        <tr><td>HENRY</td><td>Bear</td><td>Missing</td></tr>
-        <tr><td>MEI</td><td>Panda</td><td>(REDACTED)</td></tr>
-        <tr><td>LEONA</td><td>Lion</td><td>(REDACTED)</td></tr>
-        <tr><td>FIONA</td><td>Chimpanzee</td><td>(REDACTED)</td></tr>
-        <tr><td>ZIGGY</td><td>Zebra</td><td>Stable</td></tr>
-        <tr><td>TIGRE</td><td>Tiger</td><td>Stable</td></tr>
-        <tr><td>ELI</td><td>Elephant</td><td>Stable</td></tr>
-      </table>
+  <tr><th>Experiment</th><th>Person</th><th>Animal</th><th>Status</th></tr>
+  <tr><td>JACK</td><td>Lucas Scott</td><td>Sloth</td><td>Stable</td></tr>
+  <tr><td>BINKY</td><td>Michael Wilkins</td><td>Bunny</td><td>Stable</td></tr>
+  <tr><td>HENRY</td><td>Henry Miller</td><td>Bear</td><td>Missing</td></tr>
+  <tr><td>MEI</td><td>Cristina Flores</td><td>Panda</td><td>(REDACTED)</td></tr>
+  <tr><td>LEONA</td><td>Sophie Flores</td><td>Lion</td><td>(REDACTED)</td></tr>
+  <tr><td>FIONA</td><td>Mia Elliott</td><td>Chimpanzee</td><td>(REDACTED)</td></tr>
+  <tr><td>ZIGGY</td><td>Joseph Smith</td><td>Zebra</td><td>Stable</td></tr>
+  <tr><td>TIGRE</td><td>David Anderson</td><td>Tiger</td><td>Stable</td></tr>
+  <tr><td>ELI</td><td>Amy Hawkins</td><td>Elephant</td><td>Stable</td></tr>
+</table>
+
     </div>
 
     <div class="section">

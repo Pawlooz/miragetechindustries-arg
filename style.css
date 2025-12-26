@@ -11,7 +11,13 @@ a {
 
 /* ===== BUTTONS ===== */
 #returnBtn {
+  top: 20px;
+  left: 20px;
+  color: #00ff66;
+  text-decoration: none;
   border: 1px solid #00ff66;
+  padding: 5px 10px;
+  z-index: 1000;
 }
 
 /* ===== SECTIONS ===== */
@@ -47,4 +53,29 @@ tr:nth-child(even) td {
   overflow-y: auto;
   border: 1px solid #00ff66;
   padding: 5px;
+}
+
+.log-title {
+  color: #00ffaa;       /* brighter green for visibility */
+  font-weight: bold;     /* make it stand out */
+  font-size: 16px;       /* slightly bigger than normal text */
+  display: block;        /* starts on a new line */
+  margin-top: 10px;      /* spacing before each log */
+}
+
+.folder {
+  display: inline-block;
+  padding: 6px 12px;
+  margin: 4px 0;
+  border: 1px solid #00ff66;
+  cursor: pointer;
+  color: #00ff66;
+  background: rgba(0, 0, 0, 0.2); /* subtle shading */
+  transition: background 0.2s, transform 0.1s;
+  user-select: none;
+}
+
+.folder:hover {
+  background: rgba(0, 255, 102, 0.2);
+  transform: translateY(-1px);
 }

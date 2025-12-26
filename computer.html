@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Workstation 07</title>
+  <title>Workstation 07 - Jack's Circus Access</title>
   <style>
     body {
       background: black;
@@ -18,19 +18,14 @@
       text-decoration: none;
       border: 1px solid #00ff66;
       padding: 5px 10px;
-      font-family: monospace;
+      transition: background 0.3s;
     }
 
-    #returnBtn:hover {
-      background: rgba(0,255,100,0.1);
-    }
+    #returnBtn:hover { background: rgba(0,255,100,0.1); }
 
-    #mainContent {
-      margin-top: 40px;
-      padding: 20px;
-    }
-
-    h1 { margin-bottom: 10px; }
+    #mainContent { margin-top: 40px; padding: 20px; }
+    h1 { margin-bottom: 5px; }
+    h2 { margin-top: 0; font-size: 14px; opacity: 0.7; }
 
     .folder {
       cursor: pointer;
@@ -39,15 +34,61 @@
       padding: 5px;
       display: inline-block;
       border: 1px solid #00ff66;
+      transition: background 0.3s, opacity 0.3s, transform 0.2s;
     }
 
-    .folder.locked {
-      opacity: 0.5;
+    .folder:hover { background: rgba(0,255,100,0.1); transform: scale(1.05); }
+    .folder.locked { opacity: 0.5; }
+
+    /* Password modal */
+    #passwordModal {
+  display: flex;
+  position: fixed;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.9);
+  color: #0f0;
+  font-family: monospace;
+  z-index: 10000;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  opacity: 0;
+  transition: top 0.5s ease, opacity 0.5s ease;
+}
+
+
+    #passwordModal.show {
+  top: 0;
+  opacity: 1;
+}
+
+    #passwordModal h2 { margin-bottom: 10px; }
+    #passwordModal input {
+      font-family: monospace;
+      font-size: 16px;
+      padding: 5px;
+      width: 200px;
+      background: black;
+      color: #0f0;
+      border: 1px solid #0f0;
     }
 
-    .folder:hover {
-      background: rgba(0,255,100,0.1);
+    #passwordModal button {
+      padding: 5px 10px;
+      margin: 5px;
+      border: 1px solid #0f0;
+      background: black;
+      color: #0f0;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
     }
+
+    #passwordModal button:hover { background: #0f0; color: black; }
+    #passwordModal button.cancel { border-color: #f00; color: #f00; }
+    #passwordModal button.cancel:hover { background: #f00; color: black; }
   </style>
 </head>
 <body>
@@ -56,75 +97,121 @@
 
 <div id="mainContent">
   <h1>WORKSTATION 07</h1>
+  <h2>Jack's Circus Access Only — Restricted from other MIRAGETECH INDUSTRIES workstations</h2>
   <p>USER: GUEST</p>
 
   <div id="explorer">
-    <div class="folder" onclick="openFolder('logs')">📁 logs</div>
-    <div class="folder locked" id="adminFolder" onclick="openFolder('admin')">
-      📁 admin <span id="adminLabel">(locked)</span>
-    </div>
-    <div class="folder" onclick="openFolder('experiments')">📁 experiments</div>
-    <div class="folder" onclick="openFolder('maintenance')">📁 maintenance</div>
-    <div class="folder" onclick="openFolder('employee_handbook')">📁 employee_handbook</div>
-    <div class="folder" onclick="openFolder('personal_notes')">📁 personal_notes</div>
+  <div class="folder" onclick="openFolder('logs')">📁 logs</div>
+
+  <div class="folder locked" id="adminFolder" onclick="openFolder('admin')">
+    📁 admin <span id="adminLabel">(locked)</span>
+  </div>
+
+  <div class="folder locked" id="experimentsFolder" onclick="openFolder('experiments')">
+    📁 experiments <span id="experimentsLabel">(locked)</span>
+  </div>
+
+  <div class="folder" onclick="openFolder('maintenance')">📁 maintenance</div>
+  <div class="folder" onclick="openFolder('employee_handbook')">📁 employee_handbook</div>
+  <div class="folder" onclick="openFolder('personal_notes')">📁 personal_notes</div>
+</div>
+
+<div id="passwordModal" class="modal">
+  <div class="modalContent">
+    <p id="modalPrompt">Enter password:</p>
+    <input type="password" id="modalInput" autocomplete="off" />
+    <button id="modalSubmit">Submit</button>
+    <button id="modalCancel">Cancel</button>
+    <p id="modalError" style="color:#ff4444; display:none;">ACCESS DENIED</p>
   </div>
 </div>
 
 <script>
-const adminFolder = document.getElementById("adminFolder");
-const adminLabel = document.getElementById("adminLabel");
+const modal = document.getElementById("passwordModal");
+const input = document.getElementById("modalInput");
+const submitBtn = document.getElementById("modalSubmit");
+const cancelBtn = document.getElementById("modalCancel");
 
-function openFolder(name) {
-  switch(name) {
-    case 'admin':
-      let unlocked = localStorage.getItem("adminUnlocked");
-      if (!unlocked) {
-        const pass = prompt("Enter admin password:");
-        if (pass === "1007") {
-          localStorage.setItem("adminUnlocked", "true");
-          unlocked = true;
-          alert("ADMIN ACCESS GRANTED");
-          adminFolder.classList.remove("locked");
-          adminLabel.textContent = "";
-        } else {
-          alert("ACCESS DENIED");
-          return;
-        }
-      }
-      window.location.href = "admin.html";
-      break;
+let lastValue = "";
 
-    case 'logs':
-      window.location.href = "logs.html";
-      break;
+let targetFolder = null;
+const folderPasswords = {
+  admin: "1607",
+  experiments: "1234"
+};
 
-    case 'experiments':
-      window.location.href = "experiments.html";
-      break;
-
-    case 'maintenance':
-      window.location.href = "maintenance.html";
-      break;
-
-    case 'employee_handbook':
-      window.location.href = "employee_handbook.html";
-      break;
-
-    case 'personal_notes':
-      window.location.href = "personal_notes.html";
-      break;
-
-    default:
-      alert("Folder unavailable");
-  }
+function requestPassword(folderName) {
+  targetFolder = folderName;
+  input.value = "";
+  modal.classList.add("show");
+  input.focus();
 }
 
-// On page load, check if admin already unlocked
-window.addEventListener("load", () => {
-  if (localStorage.getItem("adminUnlocked") === "true") {
-    adminFolder.classList.remove("locked");
-    adminLabel.textContent = "";
+submitBtn.addEventListener("click", () => {
+  if (input.value === folderPasswords[targetFolder]) {
+    localStorage.setItem(targetFolder + "Unlocked", "true");
+    alert(`${targetFolder.toUpperCase()} ACCESS GRANTED`);
+    modal.classList.remove("show");
+
+    // Unlock visuals
+    const folderEl = document.getElementById(targetFolder + "Folder");
+    const label = document.getElementById(targetFolder + "Label");
+    if (folderEl) folderEl.classList.remove("locked");
+    if (label) label.textContent = "";
+
+    // Navigate
+    if (targetFolder === "admin") window.location.href = "admin.html";
+    if (targetFolder === "experiments") window.location.href = "experiments.html";
+  } else {
+    alert("ACCESS DENIED");
+    input.value = "";
+    input.focus();
   }
+});
+
+cancelBtn.addEventListener("click", () => {
+  modal.classList.remove("show");
+});
+
+input.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    submitBtn.click();
+  }
+});
+
+function openFolder(name) {
+  const unlocked = localStorage.getItem(name + "Unlocked");
+  if (unlocked) {
+    if (name === "admin") window.location.href = "admin.html";
+    if (name === "experiments") window.location.href = "experiments.html";
+    return;
+  }
+
+  if (name === "admin" || name === "experiments") {
+    requestPassword(name);
+    return;
+  }
+
+  const pages = {
+    logs: "logs.html",
+    maintenance: "maintenance.html",
+    employee_handbook: "employee_handbook.html",
+    personal_notes: "personal_notes.html"
+  };
+
+  if (pages[name]) window.location.href = pages[name];
+}
+
+// Restore unlocked folders on load
+window.addEventListener("load", () => {
+  ["admin", "experiments"].forEach(folder => {
+    if (localStorage.getItem(folder + "Unlocked") === "true") {
+      const folderEl = document.getElementById(folder + "Folder");
+      const label = document.getElementById(folder + "Label");
+      if (folderEl) folderEl.classList.remove("locked");
+      if (label) label.textContent = "";
+    }
+  });
 });
 </script>
 

@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<a class="button" href="computer.html">⮐ RETURN TO WORKSTATION</a>
+<a id="returnBtn" href="computer.html">⮐ RETURN TO WORKSTATION</a>
 
 <h1>LOG ARCHIVES</h1>
 
@@ -17,19 +17,19 @@
 </div>
 
 <pre id="logContent">
-RICHARD'S LOG 01:
+<span class="log-title">RICHARD'S LOG 01:</span>
 David's birthday is 10 days away, and I was thinking of making a surprise for his birthday. But I'm not sure what kind of surprise to make yet.
 
-RICHARD'S LOG 02:
+<span class="log-title">RICHARD'S LOG 02:</span>
 I talked with Sam the other day; he's one of the biologists at MIRAGETECH. He said he knows exactly what kind of surprise we could make for him.
 
-RICHARD'S LOG 03:
+<span class="log-title">RICHARD'S LOG 03:</span>
 I tried asking him for a few days already what kind of surprise it would be, but he never told me. The only thing he said was that David would love it.
 
-RICHARD'S LOG 04:
+<span class="log-title">RICHARD'S LOG 04:</span>
 Today's date is July 11, 2015. There are only 5 more days until his birthday. I really hope David will actually love what Sam has planned for him.
 
-LIAM'S LOG 05:
+<span class="log-title">LIAM'S LOG 03:</span>
 Emery keeps saying she doesn't know if everything we are doing is worth it, but I always remind her that the company knows what they are doing, so we should be fine.
 </pre>
 
@@ -39,8 +39,8 @@ function openLog(fileName) {
   const logContent = document.getElementById("logContent");
 
   if(fileName === 'archived_logs') {
-    logContent.textContent += `
-REDACTED LOG 01:
+    logContent.innerHTML += `
+<span class="log-title">REDACTED LOG 01:</span>
 David’s birthday is approaching. Exact day unknown. Must confirm date and month before next planning session.
 `;
   }

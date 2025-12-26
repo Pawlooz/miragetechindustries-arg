@@ -3,53 +3,133 @@
   <head> 
     <title>Security Terminal</title> 
     <style> 
-    body { 
-      background: black; 
-      color: #00ff66; 
-      font-family: monospace; 
-      padding: 20px; 
-      } 
-
-      #terminal { 
-        padding: 20px; 
-      } 
-
-      input { 
-        background: black; 
-        color: #00ff66; 
-        border: none; 
-        outline: none; 
-        font-family: monospace; 
-      } #output { 
-        white-space: pre-wrap; 
-      } 
-
-      #header {
-  font-size: 26px;
-  font-weight: bold;
-  letter-spacing: 2px;
-  margin-bottom: 20px;
-  text-shadow: 0 0 8px rgba(0, 255, 100, 0.6);
+    body {
+  background: black;
+  color: #00ff66;
+  font-family: monospace;
+  margin: 0;
+  padding: 0;
 }
 
-      a { 
-        color: #00ff66; 
-        display: block; 
-        margin-top: 10px; 
-      } 
+#terminal {
+  padding: 40px;
+  max-width: 900px;
+}
+
+#header {
+  margin-bottom: 30px;
+}
+
+#title {
+  font-size: 28px;
+  letter-spacing: 3px;
+}
+
+#subtitle {
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+#session {
+  font-size: 13px;
+  opacity: 0.6;
+  margin-bottom: 30px;
+}
+
+#boot {
+  font-size: 13px;
+  opacity: 0.5;
+  margin-bottom: 40px;
+}
+
+#console {
+  font-size: 15px;
+}
+
+.hint {
+  font-size: 13px;
+  opacity: 0.6;
+  margin-bottom: 10px;
+}
+
+.prompt {
+  display: flex;
+  align-items: center;
+}
+
+.prompt span {
+  margin-right: 8px;
+}
+
+input {
+  background: black;
+  color: #00ff66;
+  border: none;
+  outline: none;
+  font-family: monospace;
+  font-size: 15px;
+  width: 400px;
+}
+
+#output {
+  margin-top: 15px;
+  white-space: pre-wrap;
+}
+
+#links {
+  margin-top: 20px;
+}
+
+#links a {
+  color: #00ffaa;
+  display: block;
+  margin-top: 8px;
+  text-decoration: none;
+  border-bottom: 1px dotted #00ffaa;
+}
+
+#links a:hover {
+  color: #66ffcc;
+  border-bottom: 1px solid #66ffcc;
+}
       
       </style> 
       </head> 
       <body> 
-        <div id="terminal"> 
-          <p id="header">MIRAGETECH INDUSTRIES INTERNAL ACCESS</p>
-          <p><em>type <strong>help</strong> to see the list of commands</em></p> 
-          <p>ENTER COMMAND:</p> <input id="command" autocomplete="off" /> 
-          <pre id="output"></pre> 
-        </div>
+        <div id="terminal">
+
+  <div id="header">
+    <div id="title">MIRAGETECH INDUSTRIES</div>
+    <div id="subtitle">INTERNAL ACCESS TERMINAL</div>
+  </div>
+
+  <div id="session">
+    SESSION ID: 7F2C-19A<br>
+    ACCESS LEVEL: GUEST<br>
+    NODE: MIRAGE-CORE-01
+  </div>
+
+  <pre id="boot">
+[BOOT] Initializing core modules...
+[NET] Internal network unstable
+[AUTH] Admin privileges revoked
+  </pre>
+
+  <div id="console">
+    <p class="hint">type <strong>help</strong> to see available commands</p>
+    <div class="prompt">
+      <span>&gt;</span>
+      <input id="command" autocomplete="off" />
+    </div>
+    <pre id="output"></pre>
+    <div id="links"></div>
+  </div>
+
+</div>
 <script>
 const input = document.getElementById("command");
 const output = document.getElementById("output");
+const links = document.getElementById("links");
 
 let ziggyControl = false;
 
@@ -104,7 +184,7 @@ if (!input || !output) {
                 link.href = "computer.html";
                 link.textContent = "Open Workstation 07";
                 link.id = "workstation-link";
-                document.body.appendChild(link);
+                document.getElementById("links").appendChild(link);
             }
         }
 
@@ -117,7 +197,7 @@ if (!input || !output) {
                 link.href = "cameras.html";
                 link.textContent = "Open Security Cameras";
                 link.id = "camera-link";
-                document.body.appendChild(link);
+                document.getElementById("links").appendChild(link);
             }
         }
 
@@ -147,17 +227,17 @@ if (!input || !output) {
         if (!document.getElementById("workstation-link")) {
             const w = document.createElement("a");
             w.href = "computer.html";
-            w.textContent = "Open Workstation 07";
+            w.textContent = "> Open Workstation 07";
             w.id = "workstation-link";
-            document.body.appendChild(w);
+            links.appendChild(w);
         }
 
         if (!document.getElementById("camera-link")) {
             const c = document.createElement("a");
             c.href = "cameras.html";
-            c.textContent = "Open Security Cameras";
+            c.textContent = "> Open Security Cameras";
             c.id = "camera-link";
-            document.body.appendChild(c);
+            links.appendChild(c);
         }
     }
 }

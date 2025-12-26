@@ -1,5 +1,5 @@
-const input = document.getElementById("command");
-const output = document.getElementById("output");
+const input = document.getElementById("adminCommand");
+const output = document.getElementById("adminOutput");
 
 let ziggyControl = false;
 let gateAttempts = 0;
@@ -155,19 +155,24 @@ input.addEventListener("keydown", (e) => {
    ===================== */
 
 if (localStorage.getItem("camsUnlocked") === "true") {
-  if (!document.getElementById("workstation-link")) {
-    const w = document.createElement("a");
-    w.href = "computer.html";
-    w.textContent = "Open Workstation 07";
-    w.id = "workstation-link";
-    document.body.appendChild(w);
-  }
+  if (document.getElementById("adminCommand")) {
+    // We are on admin.html, don't create the links
+  } else {
+    // Only create links on the terminal page
+    if (!document.getElementById("workstation-link")) {
+      const w = document.createElement("a");
+      w.href = "computer.html";
+      w.textContent = "Open Workstation 07";
+      w.id = "workstation-link";
+      document.body.appendChild(w);
+    }
 
-  if (!document.getElementById("camera-link")) {
-    const c = document.createElement("a");
-    c.href = "cameras.html";
-    c.textContent = "Open Security Cameras";
-    c.id = "camera-link";
-    document.body.appendChild(c);
+    if (!document.getElementById("camera-link")) {
+      const c = document.createElement("a");
+      c.href = "cameras.html";
+      c.textContent = "Open Security Cameras";
+      c.id = "camera-link";
+      document.body.appendChild(c);
+    }
   }
 }
